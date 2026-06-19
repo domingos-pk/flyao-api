@@ -1,20 +1,56 @@
 generator client {
   provider = "prisma-client-js"
-  //previewFeatures = ["driverAdapters"]
-  output   = "../generated/prisma/client"
+  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
 }
-model User {
-  id            Int           @id @default(autoincrement())
-  name          String
-  email         String        @unique
-  phone         String?       @unique
-  password      String
-  createdAT     DateTime      @default(now())
-  updateAt DateTime @updatedAt
 
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+  PHONE
+}
+
+enum UserRole {
+  PASSENGER
+  ADMIN
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BANNED
+  PENDING_VERIFICATION
+}
+
+model User {
+  id                 String       @id @default(uuid()) @db.Uuid
+  name               String       @db.VarChar(100)
+  email              String?      @unique @db.VarChar(255)
+  phone              String?      @unique @db.VarChar(20)
+  avatarUrl          String?      @db.Text
+  password           String?      @db.Text
+
+  role               UserRole     @default(PASSENGER)
+  status             UserStatus   @default(PENDING_VERIFICATION)
+  provider           AuthProvider @default(EMAIL)
+  providerId         String?      @db.VarChar(255)
+
+  emailVerified      Boolean      @default(false)
+  emailVerifiedAt    DateTime?
+
+  phoneVerified      Boolean      @default(false)
+  phoneVerifiedAt    DateTime?
+
+  lastLoginAt        DateTime?
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+  deletedAt          DateTime?
+
+  @@index([email])
+  @@index([phone])
+  @@index([status])
   @@map("users")
 }

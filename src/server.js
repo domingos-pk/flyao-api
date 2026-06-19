@@ -11,7 +11,7 @@ const PORT = ENV.PORT;
 app.use(express.json());
 
 // Rotas
-app.use("api/users", userRoutes);
+app.use("/api/users", userRoutes);
 
 // Health check
 app.get("/", (req, res) => {
