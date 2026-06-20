@@ -60,7 +60,7 @@ Cria um ficheiro `.env` na raiz:
 ```env
 DATABASE_URL="postgresql://USER:PASSWORD@HOST:5432/flyao_db"
 NODE_ENV="development"
-PORT=3000
+PORT=5001
 ```
 
 ### 4. Gerar o Prisma Client
