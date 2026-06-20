@@ -2,7 +2,7 @@ import express from "express";
 //import cors from "cors";
 import { prisma } from "./config/prisma.js"; // Caminho correto
 import { ENV } from "./config/env.js"; // Caminho correto
-import userRoutes from "./routes/userRoutes.js";
+import userRoutes from "./modules/users/user.routes.js"; 
 
 const app = express();
 const PORT = ENV.PORT;
@@ -11,8 +11,9 @@ const PORT = ENV.PORT;
 app.use(express.json());
 
 // Rotas
-app.use("/users", userRoutes);
+app.use("api/users", userRoutes);
 
+// Health check
 app.get("/", (req, res) => {
   res.json({ 
     status: "success",

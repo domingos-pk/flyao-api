@@ -3,3 +3,10 @@ node_modules
 .env
 
 /generated/prisma
+src/server.js
+src/modules/users/user.controller.js
+src/modules/users/user.routes.js
+src/modules/users/user.service.js
+src/routes/userRoutes.js
+src/server.js
+.gitignore
