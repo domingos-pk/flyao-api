@@ -23,6 +23,7 @@ enum UserStatus {
   INACTIVE
   BANNED
   PENDING_VERIFICATION
+  SUSPENDED
 }
 
 model User {
