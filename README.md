@@ -24,8 +24,15 @@ flyao-api/
 ├── prisma/
 │   └── schema.prisma        # Schema do banco de dados
 ├── src/
-│   ├── config/
-│   │   └── prisma.js        # Instância do PrismaClient
+├── auth/
+│   ├── auth.routes.ts
+│   ├── auth.controller.ts
+│   ├── auth.service.ts
+│   └── auth.middleware.ts
+├── utils/
+│  └── jwt.ts
+├── config/
+│   └── prisma.js        # Instância do PrismaClient
 │   ├── modules/
 │   │   ├── users/           # Módulo de utilizadores
 │   │   └── flights/         # Módulo de voos

@@ -1,6 +1,5 @@
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -46,12 +45,29 @@ model User {
   phoneVerifiedAt    DateTime?
 
   lastLoginAt        DateTime?
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
   deletedAt          DateTime?
+
+  otps               VerificationOtp[]
 
   @@index([email])
   @@index([phone])
   @@index([status])
   @@map("users")
+}
+
+model VerificationOtp {
+  id        String   @id @default(uuid()) @db.Uuid
+  code      String   @db.VarChar(10)
+  phone     String   @db.VarChar(20)
+  userId    String   @db.Uuid
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([phone])
+  @@index([userId])
+  @@map("verification_otps")
 }
